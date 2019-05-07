@@ -23,7 +23,7 @@ translate([0,0,cornerHeight]) {
             
         translate([width,depth,0])
             mirror([1,1,0])
-            openingCorner(cornerDia,cornerHeight,cornerWidth, panelThickness,true);
+            openingCorner(cornerDia,cornerHeight,cornerWidth, panelThickness,true,true);
             
         translate([0,depth,0])
             mirror([0,1,0])
@@ -42,7 +42,7 @@ translate([0,0,lowerHeight+openingGap+upperHeight-cornerHeight]) {
         
     translate([width,depth,0])
         mirror([1,1,0])
-        openingCorner(cornerDia,cornerHeight,cornerWidth, panelThickness,true);
+        openingCorner(cornerDia,cornerHeight,cornerWidth, panelThickness,true,true);
         
     translate([0,depth,0])
         mirror([0,1,0])
@@ -60,7 +60,7 @@ translate([0,0,lowerHeight-cornerHeight]) {
         
     translate([width,depth,0])
         mirror([1,1,0])
-        openingCorner(cornerDia,cornerHeight,cornerWidth,panelThickness,false);
+        openingCorner(cornerDia,cornerHeight,cornerWidth,panelThickness,false,true);
         
     translate([0,depth,0])
         mirror([0,1,0])
@@ -80,7 +80,7 @@ translate([0,0,openingGap]) {
     translate([width,depth,lowerHeight+cornerHeight])
         mirror([0,0,1])
         mirror([1,1,0])
-        openingCorner(cornerDia,cornerHeight,cornerWidth, panelThickness,false);
+        openingCorner(cornerDia,cornerHeight,cornerWidth, panelThickness,false,true);
         
     translate([0,depth,lowerHeight+cornerHeight])
         mirror([0,0,1])
@@ -89,5 +89,5 @@ translate([0,0,openingGap]) {
 }
 
 // panels
-translate([cornerDia,cornerDia,cornerDia])
+% translate([cornerDia,cornerDia,panelThickness*2])
    cube([width-cornerDia*2,depth-cornerDia/2,panelThickness]);

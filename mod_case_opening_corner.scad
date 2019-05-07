@@ -13,14 +13,15 @@ devPanelThickness=2.5;
 $fn=50;
 overlap=0.01;
 
-openingCorner(devCornerDia,devCornerHeight,devCornerWidth,devPanelThickness,true);
+openingCorner(devCornerDia,devCornerHeight,devCornerWidth,devPanelThickness,true,true);
 
 /*
  * vertical slots are placed panelThickness*2 in from the outer edge
  * horizontal slots (on roundedCorner pieces) are placed panelThickness*2
  *    in from the top/bottom (outer) edge
  */
-module openingCorner(cornerDia,cornerHeight,cornerWidth,panelThickness,roundedCorner) {
+module openingCorner(cornerDia,cornerHeight,cornerWidth,
+        panelThickness,roundedCorner,reverseHoles) {
     slotDepth=panelThickness*3;
     difference() {
         hull() {
@@ -59,12 +60,14 @@ module openingCorner(cornerDia,cornerHeight,cornerWidth,panelThickness,roundedCo
         translate([verticalRodDia/2+cornerDia+horizontalRodDia,
                 verticalRodDia/2+cornerDia+horizontalRodDia,0])
             countersunkHole(verticalRodDia,cornerHeight,true);
+        xHoleHeightOffset = (reverseHoles) ? -horizontalRodDia : horizontalRodDia;
+        yHoleHeightOffset = (reverseHoles) ? horizontalRodDia : -horizontalRodDia;
         // horizontal rod hole X
-        translate([0,cornerDia,cornerHeight/2+horizontalRodDia])
+        translate([0,cornerDia,cornerHeight/2+xHoleHeightOffset])
             rotate([0,90,0])
                 countersunkHole(horizontalRodDia, cornerWidth+cornerDia*1.5, false);
         // horizontal rod hole Y
-        translate([cornerDia,0,cornerHeight/2-horizontalRodDia])
+        translate([cornerDia,0,cornerHeight/2+yHoleHeightOffset])
             rotate([-90,0,0])
                 countersunkHole(horizontalRodDia, cornerWidth+cornerDia*1.5, false);
         
@@ -75,6 +78,16 @@ module openingCorner(cornerDia,cornerHeight,cornerWidth,panelThickness,roundedCo
         // slot Y
         translate([panelThickness*2,cornerWidth/3+overlap,-overlap])
             cube([panelThickness,cornerWidth*2/3,slotDepth+overlap]);
+            
+        if (roundedCorner) {
+            translate([cornerWidth/4,cornerWidth/4,cornerHeight-panelThickness*3])
+            difference() {
+                cube([cornerWidth*3/4+overlap,cornerWidth*3/4+overlap,panelThickness+overlap]);
+                rotate([0,0,45])
+                    translate([-cornerWidth/3,-cornerWidth/3,-overlap])
+                        cube([cornerWidth*2/3,cornerWidth*2/3,panelThickness+overlap*2]);
+            }
+        }    
     }
 
 }
