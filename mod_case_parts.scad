@@ -13,14 +13,14 @@ devPanelThickness=2.5;
 $fn=50;
 overlap=0.01;
 
-openingCorner(devCornerDia,devCornerHeight,devCornerWidth,devPanelThickness,true,true);
+cornerBlock(devCornerDia,devCornerHeight,devCornerWidth,devPanelThickness,true,true);
 
 /*
  * vertical slots are placed panelThickness*2 in from the outer edge
  * horizontal slots (on roundedCorner pieces) are placed panelThickness*2
  *    in from the top/bottom (outer) edge
  */
-module openingCorner(cornerDia,cornerHeight,cornerWidth,
+module cornerBlock(cornerDia,cornerHeight,cornerWidth,
         panelThickness,roundedCorner,reverseHoles) {
     slotDepth=panelThickness*3;
     difference() {
