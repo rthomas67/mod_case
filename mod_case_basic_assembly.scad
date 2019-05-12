@@ -57,8 +57,8 @@ translate([0,0,cornerHeight]) {
                 true,false);
 
         // side blocks
-        sideBlocksX(sideBlockCountOnWideSide,sideBlockLengthOnWideSide);
-        sideBlocksY(sideBlockCountOnDeepSide,sideBlockLengthOnDeepSide);
+        sideBlocksX(sideBlockCountOnWideSide,sideBlockLengthOnWideSide,true);
+        sideBlocksY(sideBlockCountOnDeepSide,sideBlockLengthOnDeepSide,true);
     }  // end z-mirror
     // lower side posts
     cornerPosts(lowerCornerPostCount, lowerCornerPostHeight);
@@ -93,8 +93,8 @@ translate([0,0,lowerHeight+openingGap+upperHeight-cornerHeight]) {
                 true,false);    
 
     // side blocks
-    sideBlocksX(sideBlockCountOnWideSide,sideBlockLengthOnWideSide);
-    sideBlocksY(sideBlockCountOnDeepSide,sideBlockLengthOnDeepSide);
+    sideBlocksX(sideBlockCountOnWideSide,sideBlockLengthOnWideSide,true);
+    sideBlocksY(sideBlockCountOnDeepSide,sideBlockLengthOnDeepSide,true);
 }
 
 // lower half opening/hinge corner blocks
@@ -123,8 +123,8 @@ translate([0,0,lowerHeight-cornerHeight]) {
                 false,false);    
 
     // side blocks
-    sideBlocksX(sideBlockCountOnWideSide,sideBlockLengthOnWideSide);
-    sideBlocksY(sideBlockCountOnDeepSide,sideBlockLengthOnDeepSide);
+    sideBlocksX(sideBlockCountOnWideSide,sideBlockLengthOnWideSide,false);
+    sideBlocksY(sideBlockCountOnDeepSide,sideBlockLengthOnDeepSide,false);
 }    
 
 // upper half opening/hinge corner blocks
@@ -153,8 +153,8 @@ translate([0,0,lowerHeight+cornerHeight+openingGap]) {
                 verticalRodDia,horizontalRodDia,
                 false,false);        
         // side blocks
-      %  sideBlocksX(sideBlockCountOnWideSide,sideBlockLengthOnWideSide);
-      %  sideBlocksY(sideBlockCountOnDeepSide,sideBlockLengthOnDeepSide);
+        sideBlocksX(sideBlockCountOnWideSide,sideBlockLengthOnWideSide,false);
+        sideBlocksY(sideBlockCountOnDeepSide,sideBlockLengthOnDeepSide,false);
     }
 }
 
@@ -198,24 +198,24 @@ module cornerPosts(postCount,postHeight) {
     }
 }
 
-module sideBlocksX(blockCount,blockLength) {
+module sideBlocksX(blockCount,blockLength,roundedCorner) {
     for (i=[0:1:blockCount-1]) {
         translate([cornerWidth+i*blockLength,0,0])
             mirror([0,0,0])
                 sideBlock(cornerDia,cornerHeight,cornerWidth,blockLength,
                     panelThickness,
                     horizontalRodDia,
-                    true,true);
+                    roundedCorner,true);
         translate([cornerWidth+i*blockLength,depth,0])
             mirror([0,1,0])
                 sideBlock(cornerDia,cornerHeight,cornerWidth,blockLength,
                     panelThickness,
                     horizontalRodDia,
-                    true,true);
+                    roundedCorner,true);
     }
 }
 
-module sideBlocksY(blockCount,blockLength) {
+module sideBlocksY(blockCount,blockLength,roundedCorner) {
     for (i=[0:1:blockCount-1]) {
         translate([0,cornerWidth+i*blockLength,0])
             mirror([1,0,0])
@@ -223,12 +223,12 @@ module sideBlocksY(blockCount,blockLength) {
                 sideBlock(cornerDia,cornerHeight,cornerWidth,blockLength,
                     panelThickness,
                     horizontalRodDia,
-                    true,false);
+                    roundedCorner,false);
         translate([width,cornerWidth+i*blockLength,0])
             rotate([0,0,90])
                 sideBlock(cornerDia,cornerHeight,cornerWidth,blockLength,
                     panelThickness,
                     horizontalRodDia,
-                    true,false);
+                    roundedCorner,false);
     }
 }
