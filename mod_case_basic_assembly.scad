@@ -1,17 +1,18 @@
 use <mod_case_parts.scad>
 
+width=1000;  // outer
+depth=450;  // outer
+lowerHeight=250;
+upperHeight=115;
+
 cornerDia=10;
 cornerHeight=40;
 cornerWidth=50;
-lowerHeight=250;
-upperHeight=150;
-
 
 verticalRodDia=8;
 horizontalRodDia=6;
 
-width=800;  // outer
-depth=350;  // outer
+frameColor=[0.6,0.6,0.6];
 
 sideBlockCountOnWideSide=3;
 sideBlockCountOnDeepSide=2;
@@ -31,6 +32,7 @@ openingGap=1;
 panelThickness=2.5;
 
 // bottom
+color(frameColor)
 translate([0,0,cornerHeight]) {
     mirror([0,0,1]) {
         translate([0,0,0]) 
@@ -68,6 +70,7 @@ translate([0,0,cornerHeight]) {
 }
 
 // top
+color(frameColor)
 translate([0,0,lowerHeight+openingGap+upperHeight-cornerHeight]) {
     translate([0,0,0]) 
         cornerBlock(cornerDia,cornerHeight,cornerWidth,panelThickness,
@@ -98,6 +101,7 @@ translate([0,0,lowerHeight+openingGap+upperHeight-cornerHeight]) {
 }
 
 // lower half opening/hinge corner blocks
+color(frameColor)
 translate([0,0,lowerHeight-cornerHeight]) {
     translate([0,0,0]) 
         cornerBlock(cornerDia,cornerHeight,cornerWidth,panelThickness,
@@ -128,6 +132,7 @@ translate([0,0,lowerHeight-cornerHeight]) {
 }    
 
 // upper half opening/hinge corner blocks
+color(frameColor)
 translate([0,0,lowerHeight+cornerHeight+openingGap]) {
     mirror([0,0,1]) {
         translate([0,0,0]) 
